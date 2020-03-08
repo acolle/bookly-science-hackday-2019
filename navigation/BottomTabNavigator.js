@@ -1,7 +1,10 @@
-import * as React from 'react';
-import { View, Text } from 'react-native';
+import React, { useLayoutEffect } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import HeaderIcon from '../components/HeaderIcon';
 import TabBarIcon from '../components/TabBarIcon';
+
 import WishListScreen from '../screens/WishListScreen';
 import CameraScreen from '../screens/CameraScreen';
 import TradingListScreen from '../screens/TradingListScreen';
@@ -13,6 +16,26 @@ export default function BottomTabNavigator({ navigation, route }) {
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
   navigation.setOptions({ headerTitle: getHeaderTitle(route) });
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={handleAddBook}>
+          <HeaderIcon
+            name="md-add"
+            focused={true}
+            size={30}
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
+
+  const handleAddBook = () => {
+    let routeName = route.state?.routes[route.state.index]?.name
+    alert(routeName);
+    // navigation.navigate('AddBook');
+  }
 
   return (
     <BottomTab.Navigator initialRouteName="WishList">

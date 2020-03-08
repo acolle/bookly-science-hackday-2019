@@ -9,7 +9,7 @@ export default function TradingListScreen() {
   const [ dataLoaded, setDataLoaded ] = useState(false);
   const [ books, setBooks ] = useState([]);
 
-  const fetchWishList = async () => {
+  const fetchTradingList = async () => {
     // TODO: Use
     let url = "http://openlibrary.org/search.json?title=harry+potter";
     try {
@@ -25,7 +25,7 @@ export default function TradingListScreen() {
   }
 
   useEffect(() => {
-    fetchWishList();
+    fetchTradingList();
   }, [])
 
   return (

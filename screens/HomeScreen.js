@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Platform, StatusBar, StyleSheet, View, Text, Button, TouchableWithoutFeedback } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
@@ -7,8 +7,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import TabBarIcon from '../components/TabBarIcon';
+import HeaderIcon from '../components/HeaderIcon';
 import BottomTabNavigator from '../navigation/BottomTabNavigator';
 import useLinking from '../navigation/useLinking';
+
+import AddBookScreen from './AddBookScreen';
 
 import { firebase } from '../config/firebase.js';
 
@@ -56,11 +59,6 @@ export default function App(props) {
     });
   }
 
-  const handleAddBook = () => {
-    alert("Add")
-    console.log("Add");
-  }
-
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return null;
   } else {
@@ -79,17 +77,12 @@ export default function App(props) {
                     title="Sign out"
                     color="#000"
                   />
-                ),
-                headerRight: () => (
-                  <TouchableWithoutFeedback onPress={handleAddBook}>
-                    <TabBarIcon
-                      name="md-add"
-                      focused={true}
-                      size={30}
-                    />
-                  </TouchableWithoutFeedback>
                 )
               }}
+            />
+            <Stack.Screen
+              name="AddBook"
+              component={AddBookScreen}
             />
           </Stack.Navigator>
         </NavigationContainer>
